@@ -278,7 +278,7 @@ pub struct Args {
     cur: *mut *mut u16,
 }
 
-unsafe fn os_string_from_ptr(ptr: *mut u16) -> OsStringExt {
+unsafe fn os_string_from_ptr(ptr: *mut u16) -> OsString {
     let mut len = 0;
     while *ptr.offset(len) != 0 { len += 1; }
 
