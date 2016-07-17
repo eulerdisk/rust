@@ -291,14 +291,14 @@ unsafe fn os_string_from_ptr(ptr: *mut u16) -> OsString {
 impl Iterator for Args {
     type Item = OsString;
     fn next(&mut self) -> Option<OsString> {
-        self.range.next().map(|i| os_string_from_ptr(self.cur.offset(i)))
+        self.range.next().map(|i| os_string_from_ptr(unsafe { *self.cur.offset(i) }))
     }
     fn size_hint(&self) -> (usize, Option<usize>) { self.range.size_hint() }
 }
 
 impl DoubleEndedIterator for Args {
     fn next_back(&mut self) -> Option<OsString> {
-        self.range.next_back().map(|i| os_string_from_ptr(self.cur.offset(i)))
+        self.range.next_back().map(|i| os_string_from_ptr(unsafe { *self.cur.offset(i) }))
     }
 }
 
